@@ -108,6 +108,10 @@ void show_LED(int8_t LED, int16_t Draw_Y, int16_t TFT_color) {
 
 // ==================== 初始化設定函式（開機時執行一次）====================
 void setup() {
+  // ========== 藍牙序列埠初始化（HC-05 通訊）==========
+  Serial.begin(9600);         // 初始化序列埠，鮑率 9600 bps（與 VB 程式一致）
+  Serial.setTimeout(1000);    // 設定接收逾時 1000ms（與 VB 的 ReadTimeout 一致）
+  
   // ========== 計時器初始化 ==========
   timer_ini(34286);  // 初始化 Timer1，預載值 34286（產生 2Hz 中斷，配合 cnt_1s 形成 1 秒週期）
   
@@ -138,6 +142,12 @@ void setup() {
   tft.fillScreen(ST77XX_BLACK);  // 清除螢幕
   tft_w(30, 25, 18, ST77XX_RED, "MENU", 0);          // 顯示 "MENU" 標題（紅色，18pt）
   tft_w(0, 70, 12, ST77XX_WHITE, page0_md[0], 0);    // 顯示第一個選單項目 "Time"（白色，12pt）
+  
+  // ========== 藍牙就緒通知 ==========
+  delay(500);  // 等待藍牙模組穩定
+  Serial.println("READY");              // 通知 VB 程式系統已就緒
+  Serial.println("VERSION:1.0");        // 發送版本資訊
+  Serial.println("DEVICE:CYIVS_C217");  // 發送裝置識別碼
 }
 
 // ==================== 主迴圈函式（持續執行）====================
@@ -146,6 +156,10 @@ void loop() {
   static uint32_t kt = millis();  // 上次按鍵掃描的時間戳記（毫秒）
   static int8_t page0 = 0;        // 目前選單位置（0=Time, 1=BLE, 2=EEPROM, 3=Light）
   static boolean kf0;             // 按鍵旗標（防止重複觸發）
+
+  // ========== 全域藍牙指令監聽 ==========
+  // 隨時監聽 VB 程式的藍牙指令（不影響按鍵操作）
+  processVBCommand();
 
   // ========== 按鍵掃描（每 20ms 檢查一次）==========
   if ((millis() - kt) > 20)  // 如果距離上次掃描超過 20ms（防彈跳處理）
@@ -163,12 +177,20 @@ void loop() {
       if (++page0 > 3) page0 = 0;  // 選單索引 +1，超過 3 則循環回 0
       kf0 = 1;  // 設定旗標防止連續觸發
       tft_w(0, 70, 12, ST77XX_WHITE, page0_md[page0], 0);  // 更新螢幕顯示新選項
+      
+      // 通知 VB 程式選單變更
+      Serial.print("MENU_CHANGE:");
+      Serial.println(page0_md[page0]);
     } 
     // --- Key1 處理：上一個選單項目 ---
     else if (!keyC(1)) {  // 如果 Key1 被按下
       if (--page0 < 0) page0 = 3;  // 選單索引 -1，小於 0 則循環到 3
       kf0 = 1;  // 設定旗標防止連續觸發
       tft_w(0, 70, 12, ST77XX_WHITE, page0_md[page0], 0);  // 更新螢幕顯示新選項
+      
+      // 通知 VB 程式選單變更
+      Serial.print("MENU_CHANGE:");
+      Serial.println(page0_md[page0]);
     } 
     // --- Key2 處理：確認進入選定的功能 ---
     else if (!keyC(2)) {  // 如果 Key2 被按下
@@ -196,6 +218,107 @@ void loop() {
       tft.fillScreen(ST77XX_BLACK);  // 清除螢幕
       tft_w(30, 25, 18, ST77XX_RED, "MENU", 0);          // 顯示 MENU 標題
       tft_w(0, 70, 12, ST77XX_WHITE, page0_md[page0], 0); // 顯示目前選項
+    }
+  }
+}
+
+// ==================== VB 藍牙指令處理函式 ====================
+// 功能：處理 VB 程式透過 HC-05 傳來的指令
+// VB 協定：# 開頭為寫入指令，@ 開頭為讀取請求
+void processVBCommand() {
+  if (Serial.available() > 0) {
+    char controlChar = Serial.read();  // 讀取控制字元（# 或 @）
+    
+    // ========== 寫入模式：# 開頭 ==========
+    if (controlChar == '#') {
+      String command = "";
+      unsigned long startTime = millis();
+      
+      // 讀取完整指令（最多等待 100ms）
+      while (millis() - startTime < 100) {
+        if (Serial.available() > 0) {
+          char c = Serial.read();
+          if (c == '\n' || c == '\r') break;  // 遇到換行結束
+          command += c;
+        }
+        delay(2);  // 短暫延遲等待下一個字元
+      }
+      
+      // 在 TFT 螢幕顯示接收到的指令（除錯用）
+      String displayCmd = command;
+      if (displayCmd.length() > 15) {
+        displayCmd = displayCmd.substring(0, 15) + "...";  // 限制顯示長度
+      }
+      tft_w(0, 110, 9, ST77XX_CYAN, "VB:" + displayCmd + "   ", 0);
+      
+      // ===== 解析並執行指令 =====
+      
+      // LED 亮度控制：LED數字 (例如：LED100)
+      if (command.startsWith("LED") && command.length() > 3) {
+        String brightnessStr = command.substring(3);
+        int brightness = brightnessStr.toInt();
+        
+        if (brightness >= 0 && brightness <= 255) {
+          strip.setBrightness(brightness);
+          strip.show();
+          Serial.println("OK:LED_SET");
+        } else {
+          Serial.println("ERROR:BRIGHTNESS_RANGE:0-255");
+        }
+      }
+      
+      // 顏色設定：COLOR:RRGGBB (例如：COLOR:FF0000)
+      else if (command.startsWith("COLOR:")) {
+        String colorStr = command.substring(6);
+        if (colorStr.length() == 6) {
+          uint32_t color = strtol(colorStr.c_str(), NULL, 16);
+          strip.fill(color, 0, LED_COUNT);
+          strip.show();
+          Serial.print("OK:COLOR_SET:");
+          Serial.println(colorStr);
+        } else {
+          Serial.println("ERROR:FORMAT:COLOR:RRGGBB");
+        }
+      }
+      
+      // 時間設定：TIME:HH:MM:SS (例如：TIME:14:30:00)
+      else if (command.startsWith("TIME:")) {
+        String timeStr = command.substring(5);
+        if (timeStr.length() == 8) {
+          tft_w(0, 100, 9, ST77XX_YELLOW, "T:" + timeStr, 0);
+          Serial.print("OK:TIME_SET:");
+          Serial.println(timeStr);
+        } else {
+          Serial.println("ERROR:FORMAT:TIME:HH:MM:SS");
+        }
+      }
+      
+      // 模式切換：MODE:0-3 (例如：MODE:2)
+      else if (command.startsWith("MODE:")) {
+        int mode = command.substring(5).toInt();
+        if (mode >= 0 && mode <= 3) {
+          Serial.print("OK:MODE:");
+          Serial.println(page0_md[mode]);
+        } else {
+          Serial.println("ERROR:MODE_RANGE:0-3");
+        }
+      }
+      
+      // 未知指令
+      else {
+        Serial.print("ERROR:UNKNOWN_CMD:");
+        Serial.println(command);
+      }
+    }
+    
+    // ========== 讀取模式：@ 開頭 ==========
+    else if (controlChar == '@') {
+      // VB 程式請求讀取系統狀態
+      Serial.print("STATUS:RUNNING");
+      Serial.print(",BRIGHTNESS:");
+      Serial.print(strip.getBrightness());
+      Serial.print(",LED_COUNT:");
+      Serial.println(LED_COUNT);
     }
   }
 }
@@ -246,10 +369,11 @@ void stripmd(uint8_t n,String wd){
 // 定義 BLE 功能的兩個子選項
 String page_change[] = { "Change Time", "Change EEPROM" };
 
-// ==================== BLE 功能（藍牙通訊相關）====================
+// ==================== BLE 功能（HC-05 藍牙通訊）====================
 // 功能：顯示藍牙連接選單，可選擇修改時間或 EEPROM 資料
+// 同時處理來自 VB 程式的藍牙指令
 void BLE() {
-  tft_w(0, 50, 9, ST77XX_RED, "Connect", 0);  // 顯示 "Connect" 提示（紅色，9pt）
+  tft_w(0, 50, 9, ST77XX_RED, "BT Connect", 0);  // 顯示 "BT Connect" 提示（紅色，9pt）
   
   // ========== 靜態變數初始化 ==========
   static uint32_t kt = millis();  // 按鍵掃描時間戳記
@@ -258,8 +382,14 @@ void BLE() {
   
   tft_w(0, 70, 9, ST77XX_GREEN, page_change[page1], 0);  // 顯示第一個子選單項目
   
+  // 通知 VB 程式進入藍牙模式
+  Serial.println("ENTER:BLE_MODE");
+  
   // ========== 無窮迴圈（直到按 Key3 退出）==========
   while (1) {
+    // ========== 處理 VB 藍牙指令 ==========
+    processVBCommand();
+    
     // --- 按鍵掃描（每 20ms）---
     if ((millis() - kt) > 20)  
     {
@@ -274,25 +404,43 @@ void BLE() {
         if (++page1 > 1) page1 = 0;  // 索引 +1，超過 1 則循環回 0
         kf0 = 1;
         tft_w(0, 70, 9, ST77XX_GREEN, page_change[page1], 0);  // 更新顯示
+        
+        // 回報按鍵事件給 VB
+        Serial.print("KEY:0,BLE_MENU:");
+        Serial.println(page1);
       } 
       // --- Key1：上一個子選項 ---
       else if (!keyC(1)) {
         if (--page1 < 0) page1 = 1;  // 索引 -1，小於 0 則循環到 1
         kf0 = 1;
         tft_w(0, 70, 9, ST77XX_GREEN, page_change[page1], 0);  // 更新顯示
+        
+        // 回報按鍵事件給 VB
+        Serial.print("KEY:1,BLE_MENU:");
+        Serial.println(page1);
       } 
       // --- Key2：確認執行 ---
       else if (!keyC(2)) {
         kf0 = 1;
+        
+        // 回報按鍵事件給 VB
+        Serial.print("KEY:2,ACTION:");
+        Serial.println(page_change[page1]);
+        
         stripmd(page1,page_change[page1]);  // 執行對應的 LED 顯示效果
         
         // 返回 BLE 選單畫面
         tft.fillScreen(ST77XX_BLACK);
         tft_w(15, 25, 12, ST77XX_WHITE, "BLE", 0);           // 顯示 BLE 標題
+        tft_w(0, 50, 9, ST77XX_RED, "BT Connect", 0);        // 顯示連接狀態
         tft_w(0, 70, 9, ST77XX_GREEN, page_change[page1], 0); // 顯示目前選項
       } 
       // --- Key3：返回主選單 ---
-      else if (!keyC(3)) break;  // 跳出無窮迴圈
+      else if (!keyC(3)) {
+        // 通知 VB 程式離開藍牙模式
+        Serial.println("EXIT:BLE_MODE");
+        break;  // 跳出無窮迴圈
+      }
     }
   }
   delay(100);  // 延遲防止按鍵重複觸發
@@ -400,12 +548,20 @@ void Light() {
         if (++page1 > 2) page1 = 0;  // 索引 +1，超過 2 則循環回 0
         kf0 = 1;
         tft_w(0, 70, 9, ST77XX_GREEN, page_strip[page1], 0);  // 更新顯示
+        
+        // 回報按鍵事件給 VB（選用）
+        Serial.print("KEY:0,LIGHT_MODE:");
+        Serial.println(page1);
       } 
       // --- Key1：上一個燈光模式 ---
       else if (!keyC(1)) {
         if (--page1 < 0) page1 = 2;  // 索引 -1，小於 0 則循環到 2
         kf0 = 1;
         tft_w(0, 70, 9, ST77XX_GREEN, page_strip[page1], 0);  // 更新顯示
+        
+        // 回報按鍵事件給 VB（選用）
+        Serial.print("KEY:1,LIGHT_MODE:");
+        Serial.println(page1);
       } 
       // --- Key2：確認顯示 LED 效果 ---
       else if (!keyC(2)) {
