@@ -1,0 +1,942 @@
+<!DOCTYPE html><html><head>
+      <title>程式分析報告</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\tseng\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.20\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      <script type="text/javascript" src="file:///c:\Users\tseng\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.20\crossnote\dependencies\mermaid\mermaid.min.js" charset="UTF-8"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      <div>
+<h1 id="114工科賽-程式分析報告">114工科賽 程式分析報告 </h1>
+<p><strong>專案名稱</strong>: 2025 工科賽嵌入式系統專案<br>
+<strong>分析日期</strong>: 2025年11月5日<br>
+<strong>平台</strong>: Arduino Uno (ATmega328P)<br>
+<strong>開發框架</strong>: PlatformIO + Arduino Framework</p>
+<hr>
+<h2 id="-目錄">📋 目錄 </h2>
+<ol>
+<li><a href="#%E5%B0%88%E6%A1%88%E6%A6%82%E8%BF%B0">專案概述</a></li>
+<li><a href="#%E7%A1%AC%E9%AB%94%E9%85%8D%E7%BD%AE">硬體配置</a></li>
+<li><a href="#%E8%BB%9F%E9%AB%94%E6%9E%B6%E6%A7%8B">軟體架構</a></li>
+<li><a href="#%E5%8A%9F%E8%83%BD%E8%A9%B3%E8%A7%A3">功能詳解</a></li>
+<li><a href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E5%88%86%E6%9E%90">程式碼分析</a></li>
+<li><a href="#%E6%8A%80%E8%A1%93%E7%89%B9%E9%BB%9E">技術特點</a></li>
+<li><a href="#%E5%95%8F%E9%A1%8C%E8%88%87%E5%BB%BA%E8%AD%B0">問題與建議</a></li>
+</ol>
+<hr>
+<h2 id="專案概述">專案概述 </h2>
+<p>這是一個基於 Arduino Uno 的互動式選單系統，整合了以下功能：</p>
+<ul>
+<li>TFT LCD 圖形化使用者介面</li>
+<li>WS2812B LED 燈條控制</li>
+<li>按鍵輸入與選單導航</li>
+<li>計時器中斷應用</li>
+<li>多功能模式切換</li>
+</ul>
+<p><strong>主要應用場景</strong>: 工業技能競賽展示、嵌入式系統教學、互動裝置原型</p>
+<hr>
+<h2 id="硬體配置">硬體配置 </h2>
+<h3 id="1-tft-lcd-顯示器-st7735">1. TFT LCD 顯示器 (ST7735) </h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>腳位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CS (片選)</td>
+<td>10</td>
+<td>SPI 晶片選擇</td>
+</tr>
+<tr>
+<td>DC (資料/指令)</td>
+<td>8</td>
+<td>A0/RS 訊號</td>
+</tr>
+<tr>
+<td>MOSI (資料)</td>
+<td>18</td>
+<td>SPI 資料輸出</td>
+</tr>
+<tr>
+<td>SCLK (時鐘)</td>
+<td>19</td>
+<td>SPI 時鐘</td>
+</tr>
+<tr>
+<td>RST (重置)</td>
+<td>9</td>
+<td>硬體重置</td>
+</tr>
+<tr>
+<td>BL (背光)</td>
+<td>6</td>
+<td>PWM 亮度控制</td>
+</tr>
+</tbody>
+</table>
+<p><strong>規格</strong>:</p>
+<ul>
+<li>解析度: 160×128 像素</li>
+<li>色彩: 16-bit RGB565</li>
+<li>介面: 軟體 SPI</li>
+<li>旋轉: 橫向模式 (rotation=3)</li>
+</ul>
+<h3 id="2-neopixel-led-燈條-ws2812b">2. NeoPixel LED 燈條 (WS2812B) </h3>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>設定值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>資料腳位</td>
+<td>PIN 5</td>
+</tr>
+<tr>
+<td>LED 數量</td>
+<td>8 顆</td>
+</tr>
+<tr>
+<td>亮度</td>
+<td>50-100 (0-255)</td>
+</tr>
+<tr>
+<td>協定</td>
+<td>GRB + 800KHz</td>
+</tr>
+</tbody>
+</table>
+<p><strong>支援顏色</strong>:</p>
+<ul>
+<li>紅色: <code>0xff0000</code></li>
+<li>綠色: <code>0x00ff00</code></li>
+<li>藍色: <code>0x0000ff</code></li>
+<li>白色: <code>0x1f1f1f</code></li>
+<li>紫色: <code>0xff00ff</code></li>
+</ul>
+<h3 id="3-按鍵輸入">3. 按鍵輸入 </h3>
+<table>
+<thead>
+<tr>
+<th>按鍵</th>
+<th>腳位</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key 0</td>
+<td>PC0 (A0)</td>
+<td>下一個選項</td>
+</tr>
+<tr>
+<td>Key 1</td>
+<td>PC1 (A1)</td>
+<td>上一個選項</td>
+</tr>
+<tr>
+<td>Key 2</td>
+<td>PC2 (A2)</td>
+<td>確認/執行</td>
+</tr>
+<tr>
+<td>Key 3</td>
+<td>PC3 (A3)</td>
+<td>返回上層</td>
+</tr>
+</tbody>
+</table>
+<p><strong>防彈跳機制</strong>: 20ms 軟體掃描週期</p>
+<h3 id="4-其他週邊">4. 其他週邊 </h3>
+<ul>
+<li><strong>狀態指示燈</strong>: PIN 13 (每秒閃爍)</li>
+<li><strong>計時器</strong>: Timer1 硬體中斷</li>
+</ul>
+<hr>
+<h2 id="軟體架構">軟體架構 </h2>
+<h3 id="檔案結構">檔案結構 </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>114-industrial-compe/
+├── platformio.ini          # PlatformIO 組態檔
+├── include/
+│   └── Engnin_comp_2025.h  # 標頭檔與巨集定義
+├── src/
+│   └── main.cpp            # 主程式 (271 行)
+└── lib/                    # 自訂函式庫目錄
+</code></pre><h3 id="相依函式庫">相依函式庫 </h3>
+<pre data-role="codeBlock" data-info="ini" class="language-ini ini"><code><span class="token key attr-name">lib_deps</span> <span class="token punctuation">=</span> 
+    adafruit/Adafruit GFX Library@^1.12.3
+    adafruit/Adafruit SSD1306@^2.5.15
+    adafruit/Adafruit NeoPixel@^1.15.2
+    adafruit/Adafruit ST7735 and ST7789 Library@^1.11.0
+</code></pre><h3 id="選單層級結構">選單層級結構 </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>主選單 (MENU)
+│
+├─[1] Time          → Time() 函式
+│   └─ (目前未實作具體功能)
+│
+├─[2] BLE           → BLE() 函式
+│   ├─ Change Time      → stripmd(0, ...)
+│   └─ Change EEPROM    → stripmd(1, ...)
+│
+├─[3] EEPROM        → EEPROM() 函式
+│   └─ 倒數計時 + LED 閃爍
+│
+└─[4] Light         → Light() 函式
+    ├─ mod 1            → stripmd(0, ...)
+    ├─ mod 2            → stripmd(1, ...)
+    └─ mod 3            → stripmd(2, ...)
+</code></pre><hr>
+<h2 id="功能詳解">功能詳解 </h2>
+<h3 id="1️⃣-time-功能">1️⃣ Time 功能 </h3>
+<p><strong>檔案位置</strong>: <code>main.cpp</code> 第 135-138 行</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">Time</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token function">keyC</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p><strong>功能說明</strong>:</p>
+<ul>
+<li>⏱️ 目前僅實作等待返回鍵的邏輯</li>
+<li>🔧 預留空間可擴充時間設定功能</li>
+</ul>
+<p><strong>建議擴充</strong>:</p>
+<ul>
+<li>顯示即時時間 (RTC 模組)</li>
+<li>設定鬧鐘功能</li>
+<li>時間格式切換 (12/24小時制)</li>
+</ul>
+<hr>
+<h3 id="2️⃣-ble-功能">2️⃣ BLE 功能 </h3>
+<p><strong>檔案位置</strong>: <code>main.cpp</code> 第 154-183 行</p>
+<p><strong>子選單選項</strong>:</p>
+<ol>
+<li><strong>Change Time</strong> - 修改時間設定</li>
+<li><strong>Change EEPROM</strong> - 修改記憶體資料</li>
+</ol>
+<p><strong>操作流程</strong>:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>進入 BLE → 顯示 "Connect" 
+    ↓
+Key0/Key1 切換子選項
+    ↓
+Key2 確認 → 執行 stripmd() 顯示對應 LED
+    ↓
+Key3 返回主選單
+</code></pre><p><strong>LED 顯示效果</strong>:</p>
+<ul>
+<li>Change Time (index 0): 紅色 LED</li>
+<li>Change EEPROM (index 1): 綠色 LED</li>
+</ul>
+<p><strong>程式碼片段</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">BLE</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">tft_w</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> ST77XX_RED<span class="token punctuation">,</span> <span class="token string">"Connect"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ... 選單邏輯 ...</span>
+  <span class="token function">stripmd</span><span class="token punctuation">(</span>page1<span class="token punctuation">,</span> page_change<span class="token punctuation">[</span>page1<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+<h3 id="3️⃣-eeprom-功能">3️⃣ EEPROM 功能 </h3>
+<p><strong>檔案位置</strong>: <code>main.cpp</code> 第 185-228 行</p>
+<p><strong>核心功能</strong>: 10秒倒數計時器 + LED 閃爍提示</p>
+<p><strong>執行流程</strong>:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>啟動計時 (10秒)
+    ↓
+每秒更新螢幕顯示 "00:00:XX"
+    ↓
+Key2 可暫停/繼續
+    ↓
+倒數結束 → LED 閃爍紫色 3 次
+    ↓
+Key3 返回
+</code></pre><p><strong>關鍵變數</strong>:</p>
+<ul>
+<li><code>ss</code>: 剩餘秒數 (初始值 10)</li>
+<li><code>tf</code>: 計時開關旗標</li>
+<li><code>timecount</code>: 50ms 計數器 (達到 1 秒)</li>
+<li><code>count</code>: LED 閃爍次數 (6次 = 3個開關週期)</li>
+</ul>
+<p><strong>LED 閃爍邏輯</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>ss <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> count <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>count <span class="token operator">%</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> strip<span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token number">0xff00ff</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 紫色</span>
+  <span class="token keyword keyword-else">else</span> strip<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                             <span class="token comment">// 熄滅</span>
+  strip<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  count<span class="token operator">--</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+<h3 id="4️⃣-light-功能">4️⃣ Light 功能 </h3>
+<p><strong>檔案位置</strong>: <code>main.cpp</code> 第 230-264 行</p>
+<p><strong>燈光模式</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>名稱</th>
+<th>LED顏色</th>
+<th>索引</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模式1</td>
+<td>mod 1</td>
+<td>紅色</td>
+<td>0</td>
+</tr>
+<tr>
+<td>模式2</td>
+<td>mod 2</td>
+<td>綠色</td>
+<td>1</td>
+</tr>
+<tr>
+<td>模式3</td>
+<td>mod 3</td>
+<td>藍色</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>操作方式</strong>:</p>
+<ol>
+<li>Key0/Key1 選擇模式</li>
+<li>Key2 執行 → 點亮對應位置的 LED</li>
+<li>Key3 返回主選單</li>
+</ol>
+<p><strong>視覺效果</strong>:</p>
+<ul>
+<li>TFT 螢幕繪製 8 個圓形</li>
+<li>選定的 LED 位置會填滿顏色</li>
+<li>NeoPixel 實體 LED 同步點亮</li>
+</ul>
+<hr>
+<h2 id="程式碼分析">程式碼分析 </h2>
+<h3 id="核心函式說明">核心函式說明 </h3>
+<h4 id="1-tft_w---tft-文字輸出函式">1. <code>tft_w()</code> - TFT 文字輸出函式 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">tft_w</span><span class="token punctuation">(</span><span class="token keyword keyword-uint16_t">uint16_t</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-uint16_t">uint16_t</span> y<span class="token punctuation">,</span> <span class="token keyword keyword-uint8_t">uint8_t</span> pt<span class="token punctuation">,</span> 
+           <span class="token keyword keyword-uint16_t">uint16_t</span> color<span class="token punctuation">,</span> String wd<span class="token punctuation">,</span> boolean inv<span class="token punctuation">)</span>
+</code></pre><p><strong>參數說明</strong>:</p>
+<ul>
+<li><code>x, y</code>: 文字座標</li>
+<li><code>pt</code>: 字體大小 (9/12/18 pt)</li>
+<li><code>color</code>: 文字顏色</li>
+<li><code>wd</code>: 顯示字串</li>
+<li><code>inv</code>: 反色模式 (true=黑底白字)</li>
+</ul>
+<p><strong>特色</strong>:</p>
+<ul>
+<li>✅ 自動清除背景區域</li>
+<li>✅ 支援多種字體大小</li>
+<li>✅ 使用 FreeMono 等寬字型</li>
+</ul>
+<p><strong>使用範例</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token function">tft_w</span><span class="token punctuation">(</span><span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">,</span> ST77XX_RED<span class="token punctuation">,</span> <span class="token string">"CYIVS"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 紅色 18pt</span>
+<span class="token function">tft_w</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> ST77XX_WHITE<span class="token punctuation">,</span> <span class="token string">"MENU"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// 白色 12pt</span>
+<span class="token function">tft_w</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> ST77XX_GREEN<span class="token punctuation">,</span> <span class="token string">"Connect"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// 綠色 9pt</span>
+</code></pre><hr>
+<h4 id="2-led_on---繪製-led-外框">2. <code>LED_on()</code> - 繪製 LED 外框 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">LED_on</span><span class="token punctuation">(</span><span class="token keyword keyword-int16_t">int16_t</span> Draw_Y<span class="token punctuation">,</span> <span class="token keyword keyword-int16_t">int16_t</span> TFT_color<span class="token punctuation">)</span>
+</code></pre><p><strong>功能</strong>: 在 TFT 螢幕上繪製 8 個空心圓形，代表 LED 位置</p>
+<p><strong>座標陣列</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-int16_t">int16_t</span> Circle_X<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">,</span> <span class="token number">90</span><span class="token punctuation">,</span> <span class="token number">110</span><span class="token punctuation">,</span> <span class="token number">130</span><span class="token punctuation">,</span> <span class="token number">150</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><p><strong>視覺效果</strong>:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>○  ○  ○  ○  ○  ○  ○  ○    ← 8個空心圓
+</code></pre><hr>
+<h4 id="3-show_led---顯示-led-狀態">3. <code>show_LED()</code> - 顯示 LED 狀態 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">show_LED</span><span class="token punctuation">(</span><span class="token keyword keyword-int8_t">int8_t</span> LED<span class="token punctuation">,</span> <span class="token keyword keyword-int16_t">int16_t</span> Draw_Y<span class="token punctuation">,</span> <span class="token keyword keyword-int16_t">int16_t</span> TFT_color<span class="token punctuation">)</span>
+</code></pre><p><strong>功能</strong>: 根據位元組值點亮對應的 LED</p>
+<p><strong>範例</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token function">show_LED</span><span class="token punctuation">(</span><span class="token number">0b00000011</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">,</span> ST77XX_RED<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 點亮第 0、1 顆 LED</span>
+</code></pre><p><strong>位元對應</strong>:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>Bit:  7  6  5  4  3  2  1  0
+LED:  ●  ●  ●  ●  ●  ●  ○  ○
+</code></pre><p><strong>實作邏輯</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">8</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">bitRead</span><span class="token punctuation">(</span>LED<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    tft<span class="token punctuation">.</span><span class="token function">fillCircle</span><span class="token punctuation">(</span>Circle_X<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> Draw_Y<span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> TFT_color<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 填滿</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+    tft<span class="token punctuation">.</span><span class="token function">fillCircle</span><span class="token punctuation">(</span>Circle_X<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> Draw_Y<span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>          <span class="token comment">// 清除</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+<h4 id="4-stripmd---neopixel-模式顯示">4. <code>stripmd()</code> - NeoPixel 模式顯示 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">stripmd</span><span class="token punctuation">(</span><span class="token keyword keyword-uint8_t">uint8_t</span> n<span class="token punctuation">,</span> String wd<span class="token punctuation">)</span>
+</code></pre><p><strong>功能</strong>: 整合螢幕與實體 LED 的顯示</p>
+<p><strong>執行步驟</strong>:</p>
+<ol>
+<li>清除螢幕</li>
+<li>繪製 LED 外框</li>
+<li>點亮第 n 個 LED (螢幕)</li>
+<li>顯示文字說明</li>
+<li>點亮第 n 個 NeoPixel (實體)</li>
+<li>等待 Key3 返回</li>
+</ol>
+<p><strong>顏色對應</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-uint32_t">uint32_t</span> strip_col<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> 
+  <span class="token number">0xff0000</span><span class="token punctuation">,</span>  <span class="token comment">// [0] 紅色</span>
+  <span class="token number">0x00ff00</span><span class="token punctuation">,</span>  <span class="token comment">// [1] 綠色</span>
+  <span class="token number">0x0000ff</span><span class="token punctuation">,</span>  <span class="token comment">// [2] 藍色</span>
+  <span class="token number">0x1f1f1f</span><span class="token punctuation">,</span>  <span class="token comment">// [3] 白色</span>
+  <span class="token number">0xff0000</span><span class="token punctuation">,</span>  <span class="token comment">// [4] 紅色</span>
+  <span class="token number">0xff0000</span>   <span class="token comment">// [5] 紅色</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><hr>
+<h4 id="5-convert24to16---色彩轉換">5. <code>convert24to16()</code> - 色彩轉換 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-uint16_t">uint16_t</span> <span class="token function">convert24to16</span><span class="token punctuation">(</span><span class="token keyword keyword-uint32_t">uint32_t</span> rgb<span class="token punctuation">)</span>
+</code></pre><p><strong>功能</strong>: 將 24-bit RGB 轉換為 16-bit RGB565</p>
+<p><strong>轉換公式</strong>:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>輸入:  RRRRRRRR GGGGGGGG BBBBBBBB  (24-bit)
+         ↓         ↓         ↓
+輸出:  RRRRR GGGGGG BBBBB           (16-bit)
+       5-bit  6-bit  5-bit
+</code></pre><p><strong>實作</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>r <span class="token operator">=</span> <span class="token function">map</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xFF</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x1F</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token number">11</span><span class="token punctuation">;</span>  <span class="token comment">// R: 5 bits</span>
+g <span class="token operator">=</span> <span class="token function">map</span><span class="token punctuation">(</span>g<span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xFF</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x3F</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span>   <span class="token comment">// G: 6 bits</span>
+b <span class="token operator">=</span> <span class="token function">map</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0xFF</span><span class="token punctuation">,</span> <span class="token number">0x00</span><span class="token punctuation">,</span> <span class="token number">0x1F</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// B: 5 bits</span>
+<span class="token keyword keyword-return">return</span> r <span class="token operator">|</span> g <span class="token operator">|</span> b<span class="token punctuation">;</span>
+</code></pre><hr>
+<h4 id="6-timer1-中斷服務">6. Timer1 中斷服務 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token function">ISR</span><span class="token punctuation">(</span>TIMER1_OVF_vect<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  TCNT1 <span class="token operator">=</span> timer1_counter<span class="token punctuation">;</span>
+  cnt_1s <span class="token operator">^=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token function">digitalWrite</span><span class="token punctuation">(</span><span class="token number">13</span><span class="token punctuation">,</span> cnt_1s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p><strong>功能</strong>: 產生 1 秒週期的脈衝訊號</p>
+<p><strong>計算方式</strong>:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>Timer1 溢位頻率 = 16MHz / 256 / 65536 = 0.95 Hz
+預載值 = 65536 - 34286 = 31250
+實際頻率 = 16MHz / 256 / 31250 = 2 Hz (0.5秒週期)
+cnt_1s 切換 → 1 秒週期
+</code></pre><p><strong>初始化</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token function">timer_ini</span><span class="token punctuation">(</span><span class="token number">34286</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 設定預載值</span>
+</code></pre><hr>
+<h3 id="按鍵處理機制">按鍵處理機制 </h3>
+<h4 id="巨集定義">巨集定義 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">keyC</span><span class="token expression"><span class="token punctuation">(</span>byte<span class="token punctuation">)</span> <span class="token punctuation">(</span>PINC <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>byte<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+</code></pre><p><strong>功能</strong>: 讀取 PORTC 的指定位元</p>
+<p><strong>回傳值</strong>:</p>
+<ul>
+<li><code>0</code>: 按鍵被按下 (LOW)</li>
+<li><code>非0</code>: 按鍵放開 (HIGH)</li>
+</ul>
+<h4 id="防彈跳處理">防彈跳處理 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-static">static</span> <span class="token keyword keyword-uint32_t">uint32_t</span> kt <span class="token operator">=</span> <span class="token function">millis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-static">static</span> boolean kf0<span class="token punctuation">;</span>
+
+<span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">millis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> kt<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">20</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token comment">// 20ms 掃描週期</span>
+  kt <span class="token operator">=</span> <span class="token function">millis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>kf0<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token function">keyC</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">keyC</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">keyC</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">keyC</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> 
+      kf0 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment">// 所有按鍵放開才重置</span>
+  <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">keyC</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 處理 Key0 按下</span>
+    kf0 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>  <span class="token comment">// 設定旗標防止重複觸發</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><p><strong>機制說明</strong>:</p>
+<ol>
+<li>每 20ms 檢查一次按鍵狀態</li>
+<li>使用 <code>kf0</code> 旗標防止連續觸發</li>
+<li>必須所有按鍵都放開才能重新觸發</li>
+</ol>
+<hr>
+<h2 id="技術特點">技術特點 </h2>
+<h3 id="-優點">✅ 優點 </h3>
+<ol>
+<li>
+<p><strong>模組化設計</strong></p>
+<ul>
+<li>每個功能獨立成函式</li>
+<li>選單邏輯清晰易懂</li>
+<li>便於維護與擴充</li>
+</ul>
+</li>
+<li>
+<p><strong>使用者介面</strong></p>
+<ul>
+<li>圖形化選單系統</li>
+<li>視覺回饋 (LED + 螢幕)</li>
+<li>直覺的按鍵操作</li>
+</ul>
+</li>
+<li>
+<p><strong>硬體整合</strong></p>
+<ul>
+<li>TFT LCD 顯示</li>
+<li>NeoPixel 燈效</li>
+<li>Timer 中斷應用</li>
+<li>多按鍵輸入</li>
+</ul>
+</li>
+<li>
+<p><strong>防錯設計</strong></p>
+<ul>
+<li>按鍵防彈跳處理</li>
+<li>選單循環邊界檢查</li>
+<li>狀態旗標管理</li>
+</ul>
+</li>
+<li>
+<p><strong>視覺效果</strong></p>
+<ul>
+<li>多種字體大小</li>
+<li>彩色文字顯示</li>
+<li>LED 動態效果</li>
+<li>圓形圖示設計</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="️-問題與限制">⚠️ 問題與限制 </h3>
+<h4 id="1-程式碼問題">1. 程式碼問題 </h4>
+<table>
+<thead>
+<tr>
+<th>問題</th>
+<th>位置</th>
+<th>影響</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Time()</code> 函式未實作</td>
+<td>第 135 行</td>
+<td>功能不完整</td>
+</tr>
+<tr>
+<td>硬編碼魔術數字</td>
+<td>多處</td>
+<td>可維護性差</td>
+</tr>
+<tr>
+<td>字串記憶體浪費</td>
+<td>全域陣列</td>
+<td>RAM 佔用高</td>
+</tr>
+<tr>
+<td>註解亂碼</td>
+<td>標頭檔</td>
+<td>可讀性差</td>
+</tr>
+<tr>
+<td>缺少錯誤處理</td>
+<td>全域</td>
+<td>穩定性待加強</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-記憶體使用">2. 記憶體使用 </h4>
+<p><strong>RAM 使用分析</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code>Adafruit_NeoPixel strip      → <span class="token operator">~</span><span class="token number">50</span> bytes
+Adafruit_ST7735 tft          → <span class="token operator">~</span><span class="token number">100</span> bytes
+String arrays                → <span class="token operator">~</span><span class="token number">100</span> bytes
+<span class="token keyword keyword-uint32_t">uint32_t</span> stripcolor<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span>       → <span class="token number">32</span> bytes
+其他變數                      → <span class="token operator">~</span><span class="token number">50</span> bytes
+────────────────────────────────────
+總計                          ≈ <span class="token number">332</span> bytes
+</code></pre><p><strong>Arduino Uno 限制</strong>:</p>
+<ul>
+<li>SRAM: 2048 bytes</li>
+<li>Flash: 32KB</li>
+<li>EEPROM: 1KB</li>
+</ul>
+<p><strong>建議</strong>: 改用 <code>PROGMEM</code> 儲存常數字串</p>
+<h4 id="3-效能考量">3. 效能考量 </h4>
+<ul>
+<li>⏱️ 軟體 SPI 速度較慢</li>
+<li>🔄 <code>String</code> 類別造成記憶體碎片</li>
+<li>🎨 頻繁的螢幕重繪影響效能</li>
+</ul>
+<hr>
+<h2 id="建議改進方案">建議改進方案 </h2>
+<h3 id="-程式碼優化">🔧 程式碼優化 </h3>
+<h4 id="1-實作-time-功能">1. 實作 Time() 功能 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">Time</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-uint8_t">uint8_t</span> hours <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">,</span> minutes <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> seconds <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-bool">bool</span> editing <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  
+  <span class="token function">tft_w</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">,</span> ST77XX_GREEN<span class="token punctuation">,</span> 
+        <span class="token function">String</span><span class="token punctuation">(</span>hours<span class="token operator">/</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">String</span><span class="token punctuation">(</span>hours<span class="token operator">%</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">":"</span> <span class="token operator">+</span>
+        <span class="token function">String</span><span class="token punctuation">(</span>minutes<span class="token operator">/</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">String</span><span class="token punctuation">(</span>minutes<span class="token operator">%</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span><span class="token function">keyC</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// TODO: 新增時間設定邏輯</span>
+    <span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><h4 id="2-使用-progmem-節省-ram">2. 使用 PROGMEM 節省 RAM </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> menu_time<span class="token punctuation">[</span><span class="token punctuation">]</span> PROGMEM <span class="token operator">=</span> <span class="token string">"Time"</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> menu_ble<span class="token punctuation">[</span><span class="token punctuation">]</span> PROGMEM <span class="token operator">=</span> <span class="token string">"BLE"</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> menu_eeprom<span class="token punctuation">[</span><span class="token punctuation">]</span> PROGMEM <span class="token operator">=</span> <span class="token string">"EEPROM"</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span> menu_light<span class="token punctuation">[</span><span class="token punctuation">]</span> PROGMEM <span class="token operator">=</span> <span class="token string">"Light"</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-const">const</span> <span class="token keyword keyword-char">char</span><span class="token operator">*</span> <span class="token keyword keyword-const">const</span> page0_md<span class="token punctuation">[</span><span class="token punctuation">]</span> PROGMEM <span class="token operator">=</span> <span class="token punctuation">{</span>
+  menu_time<span class="token punctuation">,</span> menu_ble<span class="token punctuation">,</span> menu_eeprom<span class="token punctuation">,</span> menu_light
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre><h4 id="3-定義常數取代魔術數字">3. 定義常數取代魔術數字 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">// 選單相關常數</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">MENU_ITEM_COUNT</span> <span class="token expression"><span class="token number">4</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">MENU_TITLE_Y</span> <span class="token expression"><span class="token number">25</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">MENU_ITEM_Y</span> <span class="token expression"><span class="token number">70</span></span></span>
+
+<span class="token comment">// 按鍵掃描</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">KEY_SCAN_INTERVAL</span> <span class="token expression"><span class="token number">20</span></span></span>
+
+<span class="token comment">// LED 相關</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED_CIRCLE_RADIUS</span> <span class="token expression"><span class="token number">9</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LED_CIRCLE_Y</span> <span class="token expression"><span class="token number">60</span></span></span>
+</code></pre><h4 id="4-改善錯誤處理">4. 改善錯誤處理 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-bool">bool</span> <span class="token function">initHardware</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 初始化 NeoPixel</span>
+  strip<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>strip<span class="token punctuation">.</span><span class="token function">canShow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token comment">// 初始化 TFT</span>
+  tft<span class="token punctuation">.</span><span class="token function">initR</span><span class="token punctuation">(</span>INITR_BLACKTAB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 可加入校驗邏輯</span>
+  
+  <span class="token keyword keyword-return">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+<h3 id="-功能擴充建議">📈 功能擴充建議 </h3>
+<h4 id="1-新增-rtc-模組-ds3231">1. 新增 RTC 模組 (DS3231) </h4>
+<p><strong>功能</strong>:</p>
+<ul>
+<li>顯示即時時間</li>
+<li>設定鬧鐘</li>
+<li>時間記錄功能</li>
+</ul>
+<p><strong>接線</strong>:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>DS3231 → Arduino
+SDA    → A4
+SCL    → A5
+VCC    → 5V
+GND    → GND
+</code></pre><h4 id="2-eeprom-資料儲存">2. EEPROM 資料儲存 </h4>
+<p><strong>應用</strong>:</p>
+<ul>
+<li>儲存使用者設定</li>
+<li>記錄歷史資料</li>
+<li>開機載入預設值</li>
+</ul>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;EEPROM.h&gt;</span></span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">saveSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  EEPROM<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> brightness<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  EEPROM<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> selectedMode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">loadSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  brightness <span class="token operator">=</span> EEPROM<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  selectedMode <span class="token operator">=</span> EEPROM<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><h4 id="3-藍牙通訊-hc-05">3. 藍牙通訊 (HC-05) </h4>
+<p><strong>功能</strong>:</p>
+<ul>
+<li>手機 APP 控制</li>
+<li>遠端參數調整</li>
+<li>資料上傳</li>
+</ul>
+<p><strong>指令範例</strong>:</p>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>Serial<span class="token punctuation">.</span><span class="token function">available</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  String cmd <span class="token operator">=</span> Serial<span class="token punctuation">.</span><span class="token function">readStringUntil</span><span class="token punctuation">(</span><span class="token char">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>cmd <span class="token operator">==</span> <span class="token string">"LED_ON"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    strip<span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token number">0xFFFFFF</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    strip<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><h4 id="4-感測器整合">4. 感測器整合 </h4>
+<p><strong>建議感測器</strong>:</p>
+<ul>
+<li>🌡️ DHT22 溫濕度感測器</li>
+<li>💡 LDR 光敏電阻</li>
+<li>🎵 KY-038 聲音感測器</li>
+</ul>
+<hr>
+<h3 id="-uiux-改善">🎨 UI/UX 改善 </h3>
+<h4 id="1-進度條顯示">1. 進度條顯示 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">drawProgressBar</span><span class="token punctuation">(</span><span class="token keyword keyword-uint8_t">uint8_t</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-uint8_t">uint8_t</span> y<span class="token punctuation">,</span> 
+                     <span class="token keyword keyword-uint8_t">uint8_t</span> w<span class="token punctuation">,</span> <span class="token keyword keyword-uint8_t">uint8_t</span> h<span class="token punctuation">,</span> 
+                     <span class="token keyword keyword-uint8_t">uint8_t</span> percent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  tft<span class="token punctuation">.</span><span class="token function">drawRect</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> w<span class="token punctuation">,</span> h<span class="token punctuation">,</span> ST77XX_WHITE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  tft<span class="token punctuation">.</span><span class="token function">fillRect</span><span class="token punctuation">(</span>x<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span> y<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">,</span> 
+               <span class="token punctuation">(</span>w<span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token operator">*</span>percent<span class="token operator">/</span><span class="token number">100</span><span class="token punctuation">,</span> h<span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">,</span> 
+               ST77XX_GREEN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><h4 id="2-圖示選單">2. 圖示選單 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token comment">// 使用小型圖示取代純文字</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">drawIcon</span><span class="token punctuation">(</span><span class="token keyword keyword-uint8_t">uint8_t</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-uint8_t">uint8_t</span> y<span class="token punctuation">,</span> <span class="token keyword keyword-uint8_t">uint8_t</span> type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-switch">switch</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-case">case</span> ICON_TIME<span class="token operator">:</span>
+      <span class="token comment">// 繪製時鐘圖示</span>
+      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-case">case</span> ICON_BLE<span class="token operator">:</span>
+      <span class="token comment">// 繪製藍牙圖示</span>
+      <span class="token keyword keyword-break">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><h4 id="3-滑動動畫">3. 滑動動畫 </h4>
+<pre data-role="codeBlock" data-info="cpp" class="language-cpp cpp"><code><span class="token keyword keyword-void">void</span> <span class="token function">slideTransition</span><span class="token punctuation">(</span><span class="token keyword keyword-int16_t">int16_t</span> direction<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">160</span><span class="token punctuation">;</span> i <span class="token operator">+=</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 逐步移動螢幕內容</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+<h2 id="測試建議">測試建議 </h2>
+<h3 id="單元測試項目">單元測試項目 </h3>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 按鍵輸入測試</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> LED 顯示測試</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 選單導航測試</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 計時器精度測試</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 記憶體洩漏檢查</li>
+</ul>
+<h3 id="整合測試">整合測試 </h3>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 長時間運行穩定性</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 各功能模組互動</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 邊界條件處理</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 按鍵快速連按測試</li>
+</ul>
+<h3 id="效能測試">效能測試 </h3>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 螢幕更新速率</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> 按鍵回應時間</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> RAM 使用率監控</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Flash 空間餘裕</li>
+</ul>
+<hr>
+<h2 id="程式流程圖">程式流程圖 </h2>
+<h3 id="主程式流程">主程式流程 </h3>
+<div class="mermaid">graph TD
+    A[開機] --&gt; B[初始化硬體]
+    B --&gt; C[顯示啟動畫面&lt;br/&gt;CYIVS C217]
+    C --&gt; D[進入主選單 MENU]
+    D --&gt; E{掃描按鍵}
+    E --&gt;|Key0| F[下一個選項]
+    E --&gt;|Key1| G[上一個選項]
+    E --&gt;|Key2| H{執行選定功能}
+    F --&gt; D
+    G --&gt; D
+    H --&gt;|Time| I[Time 功能]
+    H --&gt;|BLE| J[BLE 功能]
+    H --&gt;|EEPROM| K[EEPROM 功能]
+    H --&gt;|Light| L[Light 功能]
+    I --&gt; D
+    J --&gt; D
+    K --&gt; D
+    L --&gt; D
+</div><h3 id="eeprom-功能流程">EEPROM 功能流程 </h3>
+<div class="mermaid">graph TD
+    A[進入 EEPROM] --&gt; B[初始化&lt;br/&gt;ss=10, tf=1]
+    B --&gt; C{每 50ms}
+    C --&gt;|timecount--| D{tf==1?}
+    D --&gt;|是| E{ss &gt; 0?}
+    E --&gt;|是| F[更新螢幕顯示&lt;br/&gt;00:00:XX]
+    F --&gt; G[ss--]
+    G --&gt; C
+    E --&gt;|否| H{count &gt; 0?}
+    H --&gt;|是| I[LED 閃爍紫色]
+    I --&gt; J[count--]
+    J --&gt; C
+    H --&gt;|否| C
+    D --&gt;|否| C
+    C --&gt;|Key2| K[tf ^= 1&lt;br/&gt;暫停/繼續]
+    K --&gt; C
+    C --&gt;|Key3| L[返回主選單]
+</div><hr>
+<h2 id="附錄">附錄 </h2>
+<h3 id="a-完整腳位定義表">A. 完整腳位定義表 </h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Arduino Pin</th>
+<th>ATmega328P</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TFT_CS</td>
+<td>10</td>
+<td>PB2</td>
+<td>SPI 晶片選擇</td>
+</tr>
+<tr>
+<td>TFT_DC</td>
+<td>8</td>
+<td>PB0</td>
+<td>資料/指令選擇</td>
+</tr>
+<tr>
+<td>TFT_RST</td>
+<td>9</td>
+<td>PB1</td>
+<td>硬體重置</td>
+</tr>
+<tr>
+<td>TFT_MOSI</td>
+<td>18</td>
+<td>PC4</td>
+<td>SPI 資料</td>
+</tr>
+<tr>
+<td>TFT_SCLK</td>
+<td>19</td>
+<td>PC5</td>
+<td>SPI 時鐘</td>
+</tr>
+<tr>
+<td>TFT_BL</td>
+<td>6</td>
+<td>PD6</td>
+<td>PWM 背光</td>
+</tr>
+<tr>
+<td>LED_PIN</td>
+<td>5</td>
+<td>PD5</td>
+<td>NeoPixel 資料</td>
+</tr>
+<tr>
+<td>RLED_PIN</td>
+<td>13</td>
+<td>PB5</td>
+<td>板載 LED</td>
+</tr>
+<tr>
+<td>Key0</td>
+<td>A0</td>
+<td>PC0</td>
+<td>按鍵輸入</td>
+</tr>
+<tr>
+<td>Key1</td>
+<td>A1</td>
+<td>PC1</td>
+<td>按鍵輸入</td>
+</tr>
+<tr>
+<td>Key2</td>
+<td>A2</td>
+<td>PC2</td>
+<td>按鍵輸入</td>
+</tr>
+<tr>
+<td>Key3</td>
+<td>A3</td>
+<td>PC3</td>
+<td>按鍵輸入</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b-記憶體使用估算">B. 記憶體使用估算 </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>Program Storage Space: ~18KB / 32KB (56%)
+Dynamic Memory: ~650 bytes / 2048 bytes (31%)
+</code></pre><h3 id="c-相關資源">C. 相關資源 </h3>
+<p><strong>官方文件</strong>:</p>
+<ul>
+<li><a href="https://github.com/adafruit/Adafruit_NeoPixel">Adafruit NeoPixel Library</a></li>
+<li><a href="https://github.com/adafruit/Adafruit-ST7735-Library">Adafruit ST7735 Library</a></li>
+<li><a href="https://www.arduino.cc/reference/en/language/functions/interrupts/interrupts/">Arduino Timer Interrupts</a></li>
+</ul>
+<p><strong>參考資料</strong>:</p>
+<ul>
+<li>WS2812B 資料手冊</li>
+<li>ST7735 控制器規格書</li>
+<li>ATmega328P 技術手冊</li>
+</ul>
+<hr>
+<h2 id="總結">總結 </h2>
+<p>這是一個結構完整、功能豐富的嵌入式系統專案，展現了以下技術能力：</p>
+<p>✅ <strong>硬體整合</strong>: TFT LCD + NeoPixel + 按鍵輸入<br>
+✅ <strong>中斷應用</strong>: Timer1 精確計時<br>
+✅ <strong>使用者介面</strong>: 多層選單系統<br>
+✅ <strong>程式架構</strong>: 模組化設計</p>
+<p><strong>適用場景</strong>:</p>
+<ul>
+<li>🏆 工業技能競賽</li>
+<li>📚 嵌入式系統教學</li>
+<li>🔧 互動裝置原型開發</li>
+</ul>
+<p><strong>下一步建議</strong>:</p>
+<ol>
+<li>完善 Time() 功能實作</li>
+<li>新增 RTC 模組支援</li>
+<li>實作 EEPROM 資料儲存</li>
+<li>整合藍牙通訊功能</li>
+<li>優化記憶體使用</li>
+</ol>
+<hr>
+<p><strong>分析者</strong>: GitHub Copilot<br>
+<strong>版本</strong>: 1.0<br>
+<strong>最後更新</strong>: 2025年11月5日</p>
+</div>
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>
