@@ -1,0 +1,52 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\OneDrive\\21\u4E0A\u8AB2\u7528\u8CC7\u6599\u593E\\\u5B78\u751F\u7AF6\u8CFD\u6216\u6821\u5916\u7814\u7FD2\\2025_\u5206\u5340\u8207\u5DE5\u79D1\u8CFD\\114\u5DE5\u79D1\u8CFD\\bluetooth\\VB_bluethoot-20251031\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E37D91EF-1942-468C-9CEA-CB37F3E9CA1D}|20240826\\20240828.vbproj|d:\\onedrive\\21\u4E0A\u8AB2\u7528\u8CC7\u6599\u593E\\\u5B78\u751F\u7AF6\u8CFD\u6216\u6821\u5916\u7814\u7FD2\\2025_\u5206\u5340\u8207\u5DE5\u79D1\u8CFD\\114\u5DE5\u79D1\u8CFD\\bluetooth\\vb_bluethoot-20251031\\20240826\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{E37D91EF-1942-468C-9CEA-CB37F3E9CA1D}|20240826\\20240828.vbproj|solutionrelative:20240826\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E37D91EF-1942-468C-9CEA-CB37F3E9CA1D}|20240826\\20240828.vbproj|D:\\OneDrive\\21\u4E0A\u8AB2\u7528\u8CC7\u6599\u593E\\\u5B78\u751F\u7AF6\u8CFD\u6216\u6821\u5916\u7814\u7FD2\\2025_\u5206\u5340\u8207\u5DE5\u79D1\u8CFD\\114\u5DE5\u79D1\u8CFD\\bluetooth\\VB_bluethoot-20251031\\20240826\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{E37D91EF-1942-468C-9CEA-CB37F3E9CA1D}|20240826\\20240828.vbproj|solutionrelative:20240826\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.vb",
+              "DocumentMoniker": "D:\\OneDrive\\21\u4E0A\u8AB2\u7528\u8CC7\u6599\u593E\\\u5B78\u751F\u7AF6\u8CFD\u6216\u6821\u5916\u7814\u7FD2\\2025_\u5206\u5340\u8207\u5DE5\u79D1\u8CFD\\114\u5DE5\u79D1\u8CFD\\bluetooth\\VB_bluethoot-20251031\\20240826\\Form1.vb",
+              "RelativeDocumentMoniker": "20240826\\Form1.vb",
+              "ToolTip": "D:\\OneDrive\\21\u4E0A\u8AB2\u7528\u8CC7\u6599\u593E\\\u5B78\u751F\u7AF6\u8CFD\u6216\u6821\u5916\u7814\u7FD2\\2025_\u5206\u5340\u8207\u5DE5\u79D1\u8CFD\\114\u5DE5\u79D1\u8CFD\\bluetooth\\VB_bluethoot-20251031\\20240826\\Form1.vb",
+              "RelativeToolTip": "20240826\\Form1.vb",
+              "ViewState": "AgIAACkAAAAAAAAAAIAzwDgAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-10-31T01:51:06.935Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.vb [\u8A2D\u8A08]",
+              "DocumentMoniker": "D:\\OneDrive\\21\u4E0A\u8AB2\u7528\u8CC7\u6599\u593E\\\u5B78\u751F\u7AF6\u8CFD\u6216\u6821\u5916\u7814\u7FD2\\2025_\u5206\u5340\u8207\u5DE5\u79D1\u8CFD\\114\u5DE5\u79D1\u8CFD\\bluetooth\\VB_bluethoot-20251031\\20240826\\Form1.vb",
+              "RelativeDocumentMoniker": "20240826\\Form1.vb",
+              "ToolTip": "D:\\OneDrive\\21\u4E0A\u8AB2\u7528\u8CC7\u6599\u593E\\\u5B78\u751F\u7AF6\u8CFD\u6216\u6821\u5916\u7814\u7FD2\\2025_\u5206\u5340\u8207\u5DE5\u79D1\u8CFD\\114\u5DE5\u79D1\u8CFD\\bluetooth\\VB_bluethoot\\20240826\\Form1.vb [\u8A2D\u8A08]",
+              "RelativeToolTip": "..\\VB_bluethoot\\20240826\\Form1.vb [\u8A2D\u8A08]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-10-31T01:08:11.5Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

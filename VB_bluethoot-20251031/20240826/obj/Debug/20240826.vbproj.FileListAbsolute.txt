@@ -1,0 +1,26 @@
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\bin\Debug\20240826.exe.config
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\bin\Debug\20240826.exe
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\bin\Debug\20240826.pdb
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\bin\Debug\20240826.xml
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\obj\Debug\20240826.vbprojResolveAssemblyReference.cache
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\obj\Debug\_20240826.Form1.resources
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\obj\Debug\_20240826.Resources.resources
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\obj\Debug\20240826.vbproj.GenerateResource.Cache
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\obj\Debug\20240826.exe
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\obj\Debug\20240826.xml
+c:\users\info_nb_1110331\documents\visual studio 2015\Projects\20240826\20240826\obj\Debug\20240826.pdb
+C:\vbpro\20240826\20240826\bin\Debug\20240826.exe.config
+C:\vbpro\20240826\20240826\obj\Debug\20240826.exe
+C:\vbpro\20240826\20240826\obj\Debug\20240826.xml
+C:\vbpro\20240826\20240826\obj\Debug\20240826.pdb
+C:\vbpro\20240826\20240826\bin\Debug\20240826.exe
+C:\vbpro\20240826\20240826\bin\Debug\20240826.pdb
+C:\vbpro\20240826\20240826\bin\Debug\20240826.xml
+C:\vbpro\20240826\20240826\obj\Debug\20240826.vbprojResolveAssemblyReference.cache
+C:\vbpro\20240826\20240826\obj\Debug\_20240826.Form1.resources
+C:\vbpro\20240826\20240826\obj\Debug\_20240826.Resources.resources
+C:\vbpro\20240826\20240826\obj\Debug\20240826.vbproj.GenerateResource.Cache
+C:\vbpro\20240828\20240826\bin\Debug\20240826.exe.config
+C:\vbpro\20240828\20240826\obj\Debug\20240826.exe
+C:\vbpro\20240828\20240826\obj\Debug\20240826.xml
+C:\vbpro\20240828\20240826\obj\Debug\20240826.pdb
