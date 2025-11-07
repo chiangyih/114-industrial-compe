@@ -1,0 +1,212 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class Form1
+    Inherits System.Windows.Forms.Form
+
+    'Form 覆寫 Dispose 以清除元件清單。
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    '為 Windows Form 設計工具的必要項
+    Private components As System.ComponentModel.IContainer
+
+    '注意: 以下為 Windows Form 設計工具所需的程序
+    '可以使用 Windows Form 設計工具進行修改。
+    '請勿使用程式碼編輯器進行修改。
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Close = New System.Windows.Forms.Button()
+        Me.OPEN = New System.Windows.Forms.Button()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.Label_time = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.BT_Data = New System.Windows.Forms.TextBox()
+        Me.BT_Read = New System.Windows.Forms.Button()
+        Me.BT_Write = New System.Windows.Forms.Button()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.SuspendLayout()
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GroupBox1.Controls.Add(Me.Label2)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.Close)
+        Me.GroupBox1.Controls.Add(Me.OPEN)
+        Me.GroupBox1.Controls.Add(Me.ComboBox1)
+        Me.GroupBox1.Font = New System.Drawing.Font("新細明體", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 62)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(393, 191)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "連線管理 (Device Connect)"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Red
+        Me.Label2.Location = New System.Drawing.Point(171, 144)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(120, 24)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "Disconnect"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(19, 144)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(146, 24)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Device Status :"
+        '
+        'Close
+        '
+        Me.Close.Location = New System.Drawing.Point(192, 81)
+        Me.Close.Name = "Close"
+        Me.Close.Size = New System.Drawing.Size(130, 31)
+        Me.Close.TabIndex = 1
+        Me.Close.Text = "Close"
+        Me.Close.UseVisualStyleBackColor = True
+        '
+        'OPEN
+        '
+        Me.OPEN.Location = New System.Drawing.Point(192, 44)
+        Me.OPEN.Name = "OPEN"
+        Me.OPEN.Size = New System.Drawing.Size(130, 31)
+        Me.OPEN.TabIndex = 1
+        Me.OPEN.Text = "OPEN"
+        Me.OPEN.UseVisualStyleBackColor = True
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(23, 45)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(136, 31)
+        Me.ComboBox1.TabIndex = 0
+        '
+        'SerialPort1
+        '
+        Me.SerialPort1.BaudRate = 9600
+        Me.SerialPort1.ReadTimeout = 5000
+        Me.SerialPort1.WriteTimeout = 5000
+        '
+        'Timer1
+        '
+        Me.Timer1.Interval = 1000
+        '
+        'Label_time
+        '
+        Me.Label_time.AutoSize = True
+        Me.Label_time.Font = New System.Drawing.Font("新細明體", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label_time.Location = New System.Drawing.Point(334, 9)
+        Me.Label_time.Name = "Label_time"
+        Me.Label_time.Size = New System.Drawing.Size(230, 34)
+        Me.Label_time.TabIndex = 2
+        Me.Label_time.Text = "Current Time :"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GroupBox2.Controls.Add(Me.TextBox1)
+        Me.GroupBox2.Controls.Add(Me.BT_Data)
+        Me.GroupBox2.Controls.Add(Me.BT_Read)
+        Me.GroupBox2.Controls.Add(Me.BT_Write)
+        Me.GroupBox2.Font = New System.Drawing.Font("新細明體", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(483, 62)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(393, 191)
+        Me.GroupBox2.TabIndex = 0
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "CPU Loading && EEPROM"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BackColor = System.Drawing.Color.White
+        Me.TextBox1.Font = New System.Drawing.Font("新細明體", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(19, 81)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(136, 43)
+        Me.TextBox1.TabIndex = 2
+        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'BT_Data
+        '
+        Me.BT_Data.Font = New System.Drawing.Font("Consolas", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BT_Data.Location = New System.Drawing.Point(19, 44)
+        Me.BT_Data.MaxLength = 4
+        Me.BT_Data.Name = "BT_Data"
+        Me.BT_Data.Size = New System.Drawing.Size(136, 35)
+        Me.BT_Data.TabIndex = 2
+        Me.BT_Data.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'BT_Read
+        '
+        Me.BT_Read.Location = New System.Drawing.Point(192, 81)
+        Me.BT_Read.Name = "BT_Read"
+        Me.BT_Read.Size = New System.Drawing.Size(130, 31)
+        Me.BT_Read.TabIndex = 1
+        Me.BT_Read.Text = "Start"
+        Me.BT_Read.UseVisualStyleBackColor = True
+        '
+        'BT_Write
+        '
+        Me.BT_Write.Location = New System.Drawing.Point(192, 44)
+        Me.BT_Write.Name = "BT_Write"
+        Me.BT_Write.Size = New System.Drawing.Size(130, 31)
+        Me.BT_Write.TabIndex = 1
+        Me.BT_Write.Text = "Write"
+        Me.BT_Write.UseVisualStyleBackColor = True
+        '
+        'Form1
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(971, 446)
+        Me.Controls.Add(Me.Label_time)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.Name = "Form1"
+        Me.Text = "Form1"
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Close As Button
+    Friend WithEvents OPEN As Button
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents SerialPort1 As IO.Ports.SerialPort
+    Friend WithEvents Timer1 As Timer
+    Friend WithEvents Label_time As Label
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents BT_Data As TextBox
+    Friend WithEvents BT_Read As Button
+    Friend WithEvents BT_Write As Button
+    Friend WithEvents TextBox1 As TextBox
+End Class

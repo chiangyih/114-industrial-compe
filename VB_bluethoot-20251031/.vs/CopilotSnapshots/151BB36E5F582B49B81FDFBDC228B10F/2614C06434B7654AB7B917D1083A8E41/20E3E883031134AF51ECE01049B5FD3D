@@ -1,0 +1,348 @@
+﻿Imports System.IO.Ports
+Imports System.Management
+
+Public Class Form1
+    ' State Management
+    Private Enum ConnectionState
+        Disconnected
+   Connected
+    End Enum
+
+    Private currentState As ConnectionState = ConnectionState.Disconnected
+ 
+    ' COM Port Management
+    Private com_buf(10) As String
+    Private com_cnt As Integer
+    Private portWatcher As ManagementEventWatcher
+    
+    ' CPU Monitoring
+    Private cpuCounter As PerformanceCounter
+    Private cpuTimer As Timer
+    
+    ' Configuration
+    Private SeatNo As String = "24" ' 崗位號碼
+    
+  Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Set title according to specification
+  Me.Text = "113 學年度 工業類科學生技藝競賽 電腦修護職種 台中高工 第二站 崗位號碼：" & SeatNo
+        
+   ' Initialize CPU Counter
+   InitializeCpuMonitor()
+ 
+    ' Initialize UI State
+      SetDisconnectedState()
+        
+      ' Scan COM ports
+        ComboBox1_Ports()
+      
+        ' Start COM port watcher for hot-plug detection
+        StartComPortWatcher()
+    End Sub
+
+    Private Sub InitializeCpuMonitor()
+  Try
+          cpuCounter = New PerformanceCounter("Processor", "% Processor Time", "_Total")
+            cpuCounter.NextValue() ' First call always returns 0
+            
+    ' Setup CPU monitoring timer
+          cpuTimer = New Timer()
+            cpuTimer.Interval = 1000 ' 1 second
+      AddHandler cpuTimer.Tick, AddressOf CpuTimer_Tick
+    Catch ex As Exception
+            MsgBox("CPU 監測初始化失敗: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+  Label_time.Text = "Current Time : " & DateAndTime.Now
+    End Sub
+
+    Private Sub OPEN_Click(sender As Object, e As EventArgs) Handles OPEN.Click
+        If ComboBox1.SelectedIndex < 0 Then
+     MsgBox("請選擇 COM Port")
+   Return
+        End If
+   
+        SerialPort1.PortName = com_buf(ComboBox1.SelectedIndex)
+        Try
+            SerialPort1.Open()
+   SetConnectedState()
+        Catch ex As Exception
+      MsgBox("連線失敗: " & ex.Message)
+ SetDisconnectedState()
+        End Try
+    End Sub
+
+    Private Sub Close_Click(sender As Object, e As EventArgs) Handles Close.Click
+     Try
+         If cpuTimer IsNot Nothing Then cpuTimer.Stop()
+            If SerialPort1.IsOpen Then SerialPort1.Close()
+   Catch ex As Exception
+   ' Ignore close errors
+     End Try
+      SetDisconnectedState()
+    End Sub
+
+    Private Sub SetConnectedState()
+        currentState = ConnectionState.Connected
+      ComboBox1.Enabled = False
+   OPEN.Enabled = False
+    Close.Enabled = True
+    GroupBox2.Enabled = True
+  Label2.Text = "Connected"
+        Label2.BackColor = Color.Green
+        Timer1.Enabled = True
+    End Sub
+
+    Private Sub SetDisconnectedState()
+currentState = ConnectionState.Disconnected
+        ComboBox1.Enabled = True
+        OPEN.Enabled = True
+   Close.Enabled = False
+ GroupBox2.Enabled = False
+    Label2.Text = "Disconnect"
+        Label2.BackColor = Color.Red
+        Timer1.Enabled = False
+    Label_time.Text = "Current Time :"
+        
+        ' Stop CPU monitoring
+     If cpuTimer IsNot Nothing Then cpuTimer.Stop()
+        TextBox1.Text = ""
+    End Sub
+
+    Sub Write_Data(ByVal RS As Char, ByVal W_data As String)
+        If currentState <> ConnectionState.Connected Then
+     MsgBox("請先開啟連線")
+    Return
+        End If
+        
+     Try
+            If SerialPort1.IsOpen Then
+     SerialPort1.Write(RS)
+  SerialPort1.Write(W_data)
+            End If
+        Catch ex As TimeoutException
+         MsgBox("寫入逾時，請檢查裝置連線")
+ SetDisconnectedState()
+    Catch ex As Exception
+            MsgBox("傳輸錯誤: " & ex.Message)
+        End Try
+End Sub
+
+    Function Read_Data(ByVal RS As Char) As String
+        If currentState <> ConnectionState.Connected Then
+     MsgBox("請先開啟連線")
+       Return ""
+        End If
+     
+        Dim R_data As String = ""
+      Dim timeout As Integer = 0
+        Dim maxTimeout As Integer = 50 ' 5 seconds max
+        
+        Try
+  If SerialPort1.IsOpen Then
+     SerialPort1.Write(RS)
+   
+         Do While R_data = "" And timeout < maxTimeout
+   System.Threading.Thread.Sleep(100)
+               R_data = SerialPort1.ReadExisting()
+      timeout += 1
+           Loop
+  
+         If timeout >= maxTimeout Then
+               MsgBox("讀取逾時")
+            Return ""
+            End If
+            End If
+        Catch ex As TimeoutException
+            MsgBox("讀取逾時，請檢查裝置連線")
+    SetDisconnectedState()
+            Return ""
+        Catch ex As Exception
+  MsgBox("讀取錯誤: " & ex.Message)
+  Return ""
+        End Try
+        
+        Return R_data
+    End Function
+    
+    Private Sub BT_Write__Click(sender As Object, e As EventArgs) Handles BT_Write.Click
+        ' Validate binary input (4 bits)
+        Dim input As String = BT_Data.Text.Trim()
+   
+        If Not ValidateBinaryInput(input) Then
+       BT_Data.Text = ""
+         MsgBox("Not BIN Format - 請輸入 4 位二進位數字 (0 或 1)")
+ Return
+     End If
+        
+        ' Convert binary to decimal
+        Dim decimalValue As Integer = Convert.ToInt32(input, 2)
+        
+        ' Send EEPROM write command
+        SendEepromWrite(decimalValue)
+    End Sub
+    
+    Private Function ValidateBinaryInput(input As String) As Boolean
+        ' Must be exactly 4 characters
+        If input.Length <> 4 Then Return False
+        
+     ' Must only contain 0 or 1
+   For Each c As Char In input
+            If c <> "0"c And c <> "1"c Then Return False
+        Next
+        
+        Return True
+    End Function
+    
+Private Sub SendEepromWrite(value As Integer)
+' Protocol: CMD 0x02 for EEPROM Write
+      ' Format: [SOF] [CMD] [LEN] [Value] [Checksum] [EOF]
+        Dim packet(5) As Byte
+        packet(0) = &HAA ' SOF
+        packet(1) = &H2  ' CMD 0x02 - EEPROM Write
+        packet(2) = &H1  ' LEN = 1 byte payload
+    packet(3) = CByte(value) ' Decimal value
+     packet(4) = CByte((packet(1) + packet(2) + packet(3)) And &HFF) ' Checksum
+        packet(5) = &H55 ' EOF
+        
+        Try
+    If SerialPort1.IsOpen Then
+           SerialPort1.Write(packet, 0, packet.Length)
+                MsgBox("EEPROM 寫入成功: " & value.ToString())
+    End If
+        Catch ex As Exception
+    MsgBox("EEPROM 寫入失敗: " & ex.Message)
+        End Try
+    End Sub
+    
+    Private Sub BT_Read_Click(sender As Object, e As EventArgs) Handles BT_Read.Click
+        If currentState = ConnectionState.Connected Then
+  ' Start CPU monitoring
+  If cpuTimer IsNot Nothing Then
+      cpuTimer.Start()
+   End If
+        Else
+        MsgBox("請先開啟連線")
+        End If
+  End Sub
+    
+    Private Sub CpuTimer_Tick(sender As Object, e As EventArgs)
+        Try
+          Dim cpuUsage As Single = cpuCounter.NextValue()
+         Dim cpuPercent As Integer = CInt(cpuUsage)
+    
+         ' Update UI
+            TextBox1.Text = cpuPercent.ToString() & "%"
+         
+            ' Determine color based on CPU usage
+   Dim r As Byte, g As Byte, b As Byte
+            If cpuPercent <= 50 Then
+      ' Green
+         r = 0 : g = 255 : b = 0
+             TextBox1.BackColor = Color.Green
+            ElseIf cpuPercent <= 84 Then
+       ' Yellow
+           r = 255 : g = 255 : b = 0
+    TextBox1.BackColor = Color.Yellow
+            Else
+    ' Red
+      r = 255 : g = 0 : b = 0
+              TextBox1.BackColor = Color.Red
+            End If
+            
+ ' Send WS2812 color command to MCU
+  SendColorCommand(cpuPercent, r, g, b)
+ 
+        Catch ex As Exception
+        TextBox1.Text = "CPU Failed"
+        End Try
+    End Sub
+    
+    Private Sub SendColorCommand(percent As Integer, r As Byte, g As Byte, b As Byte)
+        ' Protocol: CMD 0x01 for WS2812 Color
+    ' Format: [SOF] [CMD] [LEN] [Percent] [R] [G] [B] [Checksum] [EOF]
+        Dim packet(8) As Byte
+  packet(0) = &HAA ' SOF
+        packet(1) = &H1  ' CMD 0x01 - WS2812 Color
+  packet(2) = &H4  ' LEN = 4 bytes payload
+     packet(3) = CByte(percent)
+        packet(4) = r
+        packet(5) = g
+        packet(6) = b
+        packet(7) = CByte((packet(1) + packet(2) + packet(3) + packet(4) + packet(5) + packet(6)) And &HFF) ' Checksum
+        packet(8) = &H55 ' EOF
+     
+        Try
+     If SerialPort1.IsOpen Then
+          SerialPort1.Write(packet, 0, packet.Length)
+ End If
+        Catch ex As Exception
+  ' Silently fail to avoid interrupting CPU monitoring
+        End Try
+    End Sub
+
+    Private Sub ComboBox1_Ports()
+     ComboBox1.Items.Clear()
+        com_cnt = 0
+        For Each com As String In My.Computer.Ports.SerialPortNames
+     ComboBox1.Items.Add(com)
+ com_buf(com_cnt) = com
+            com_cnt += 1
+      Next
+
+        If ComboBox1.Items.Count > 0 Then
+     ComboBox1.SelectedIndex = 0
+ End If
+    End Sub
+    
+    Private Sub StartComPortWatcher()
+        Try
+        Dim query As New WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 2 OR EventType = 3")
+   portWatcher = New ManagementEventWatcher(query)
+     AddHandler portWatcher.EventArrived, AddressOf PortWatcher_EventArrived
+            portWatcher.Start()
+    Catch ex As Exception
+    ' Hot-plug detection not critical
+        End Try
+    End Sub
+    
+    Private Sub PortWatcher_EventArrived(sender As Object, e As EventArrivedEventArgs)
+        ' Update COM port list on UI thread
+        If Me.InvokeRequired Then
+            Me.Invoke(Sub() ComboBox1_Ports())
+Else
+            ComboBox1_Ports()
+        End If
+    End Sub
+    
+    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+        ' Refresh COM port list
+      ComboBox1_Ports()
+    End Sub
+    
+    Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+     ' Cleanup
+        Try
+            If cpuTimer IsNot Nothing Then
+  cpuTimer.Stop()
+  cpuTimer.Dispose()
+   End If
+   
+    If cpuCounter IsNot Nothing Then
+         cpuCounter.Dispose()
+            End If
+            
+       If portWatcher IsNot Nothing Then
+      portWatcher.Stop()
+        portWatcher.Dispose()
+ End If
+   
+         If SerialPort1.IsOpen Then
+   SerialPort1.Close()
+     End If
+        Catch ex As Exception
+            ' Ignore cleanup errors
+     End Try
+    End Sub
+End Class
