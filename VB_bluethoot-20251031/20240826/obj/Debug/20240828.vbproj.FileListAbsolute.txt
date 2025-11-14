@@ -91,3 +91,16 @@ C:\Users\tseng\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_�
 C:\Users\tseng\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240826.exe
 C:\Users\tseng\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240826.xml
 C:\Users\tseng\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240826.pdb
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\bin\Debug\20240826.exe.config
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\bin\Debug\20240826.exe
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\bin\Debug\20240826.pdb
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\bin\Debug\20240826.xml
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240828.vbproj.AssemblyReference.cache
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240826.exe.config
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\_20240826.Form1.resources
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\_20240826.Resources.resources
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240828.vbproj.GenerateResource.cache
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240828.vbproj.CoreCompileInputs.cache
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240826.exe
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240826.xml
+D:\OneDrive\21上課用資料夾\學生競賽或校外研習\2025_分區與工科賽\114工科賽\114-industrial-compe\VB_bluethoot-20251031\20240826\obj\Debug\20240826.pdb
